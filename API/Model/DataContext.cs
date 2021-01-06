@@ -27,15 +27,11 @@ namespace API.Model
                 optionsBuilder.UseSqlServer("Server=DESKTOP-BH8BV61;Database=ProjectsDB;Trusted_Connection=True;");
             }
         }*/
-        
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cities>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(10);
@@ -53,8 +49,6 @@ namespace API.Model
 
             modelBuilder.Entity<Countries>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(10);
@@ -66,8 +60,6 @@ namespace API.Model
 
             modelBuilder.Entity<Projects>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasMaxLength(10);
