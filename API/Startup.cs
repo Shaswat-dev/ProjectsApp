@@ -12,7 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using API.Model;
-
+using API.Interfaces;
+using API.Data;
+using API.Helpers;
+using AutoMapper;
 
 namespace API
 {
@@ -29,8 +32,12 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
            services.AddControllers().AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-);
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddAutoMapper(typeof(ProjectsRepository).Assembly);
+             services.AddScoped<IProjectsRepository,ProjectsRepository>();
            services.AddDbContext<DataContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("shaswatconn")));
         }

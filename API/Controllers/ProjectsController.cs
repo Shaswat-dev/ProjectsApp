@@ -6,54 +6,71 @@ using API.DTO;
 using API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using API.Interfaces;
+using AutoMapper;
 
 namespace API.Controllers
 {
-  
+
 
 
     public class ProjectsController : BaseApiController
     {
-        private readonly DataContext _context;
-        public ProjectsController(DataContext context)
+        private readonly IProjectsRepository _projectRepository;
+        private readonly IMapper _mapper;
+
+        public ProjectsController(IProjectsRepository projectRepository, IMapper mapper)
         {
-            _context = context;
+           _mapper = mapper;
+            _projectRepository = projectRepository;
+
 
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Projects>>> GetProjects()
         {
-            var projects = await _context.Projects.ToListAsync();
-            return projects;
+            var projects = await _projectRepository.GetProjectsAsync();
+
+            var projectsval =  _mapper.Map<IEnumerable<ProjectDto>>(projects);
+            return Ok(projectsval);
         }
 
-         [HttpGet("{id}")]
-        public async Task<ActionResult<Projects>> GetProject(int id)
+       /* [HttpGet("{projectcode}", Name = "GetProject")]
+        public async Task<ActionResult<Projects>> GetProject(string projectcode)
         {
-            var project = await _context.Projects.FindAsync(id);
-            return project;
+            var project = await _projectRepository.GetProjectByProjectnameAsync(projectcode);
+            var projectval =  _mapper.Map<ProjectDto>(project);
+            return Ok(projectval);
+        }
+        */
+        [HttpGet("{projectid}", Name = "GetProject")]
+        public async Task<ActionResult<Projects>> GetProject(int projectid)
+        {
+            var project = await _projectRepository.GetProjectByIdAsync(projectid);
+            var projectval =  _mapper.Map<ProjectDto>(project);
+            return Ok(projectval);
         }
 
         [HttpPost("addprojects")]
         public async Task<ActionResult<Projects>> AddProject(ProjectDto projectDto)
         {
-           var city = await _context.Cities.FindAsync(projectDto.CityId);
-            
-            var project = new Projects
-            {
-               
-               Code =  projectDto.Code,
-               Description = projectDto.Description,
-               CityId = projectDto.CityId,
-               IsActive = Convert.ToBoolean( projectDto.IsActive),
-               City = city
-            };
+          //projectDto.IsActive = Convert.ToBoolean(projectDto.IsActive);
+          var city = await _projectRepository.GetCityByIdAsync(projectDto.CityId);
 
-            _context.Projects.Add(project);
-            await _context.SaveChangesAsync();
-            return project;
-
+          //projectDto.IsActive = true;
+            var project = _mapper.Map<Projects>(projectDto);
+            project.City =  city;
+            _projectRepository.Add(project);
+           // await _projectRepository.SaveAllAsync();
+           // return Ok(project);
+            if (await _projectRepository.SaveAllAsync())
+             {
+                 var messageToReturn = _mapper.Map<ProjectDto>(project);
+                 return CreatedAtRoute("GetProject", 
+                     new { projectid = project.Id}, project);
+             }
+             throw new Exception("Creating the project failed on save");
         }
 
     }
