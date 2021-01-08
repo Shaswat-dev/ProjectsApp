@@ -73,5 +73,22 @@ namespace API.Controllers
              throw new Exception("Creating the project failed on save");
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id,GetProjectsDto getProjectsDto)
+        {
+          
+          var project =  await _projectRepository.GetProjectByIdAsync(id);
+           // country = _mapper.Map<Countries>(addCountryDto);
+            _mapper.Map(getProjectsDto, project);
+           // await _projectRepository.SaveAllAsync();
+
+             if (await _projectRepository.SaveAllAsync())
+                return NoContent();
+
+            throw new Exception($"Updating user {id} failed on save");
+
+        }
+
+
     }
 }

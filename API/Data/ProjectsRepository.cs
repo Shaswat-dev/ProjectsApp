@@ -83,7 +83,7 @@ namespace API.Data
 
         public async Task<Countries> GetCountryByIdAsync(int id)
         {
-            return await _context.Countries.FindAsync(id);
+            return await _context.Countries.Include(p => p.Cities).FirstOrDefaultAsync( f => f.Id == id);
         }
 
         public async Task<Countries> GetCountryByCodeAsync(string citycode)

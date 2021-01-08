@@ -75,10 +75,19 @@ namespace API.Controllers
 
         }
 
-        // DELETE api/values/5
+        
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult>  Delete(int id)
         {
+             var del = await _projectRepository.GetCountryByIdAsync(id);
+            
+
+            _projectRepository.Delete(del);
+
+              if (await _projectRepository.SaveAllAsync())
+                 return NoContent();
+
+              throw new Exception("Error deleting the message");
         }
 
     }

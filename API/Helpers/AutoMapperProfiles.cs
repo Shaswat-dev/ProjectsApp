@@ -35,6 +35,8 @@ namespace API.Helpers
 
                 CreateMap<AddCountryDto,Countries>();
                CreateMap<Countries,AddCountryDto>();
+
+               CreateMap<GetProjectsDto, Projects>();
         }
     }
 }
