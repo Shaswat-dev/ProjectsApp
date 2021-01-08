@@ -25,12 +25,17 @@ export class ProjectComponent implements OnInit {
       this.model = response;
     }, error => {console.log(error);})
   }
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' }
-  ];
-  columns = [{ prop: 'name' }, { name: 'Gender' }, { name: 'Company' }];
+  columnDefs = [
+    { field: 'make' },
+    { field: 'model' },
+    { field: 'price'}
+];
+
+rowData = [
+    { make: 'Toyota', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxter', price: 72000 }
+];
 
   
 }
