@@ -9,6 +9,8 @@ import { ProjectService } from '../_services/project.service';
 })
 export class ProjectComponent implements OnInit {
   model: any ={}
+  
+  rowData : any =[]
   constructor(private projectservice: ProjectService) { }
 
   ngOnInit() {
@@ -22,20 +24,20 @@ export class ProjectComponent implements OnInit {
 
   getallprojects() {
     this.projectservice.getprojects().subscribe(response => {
-      this.model = response;
+      //this.rowData =  response; 
+     
     }, error => {console.log(error);})
   }
   columnDefs = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price'}
+    { field: 'id' },
+    { field: 'code' },
+    { field: 'description' },
+    { field: 'cityId'},
+    { field: 'isActive'}
 ];
 
-rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 }
-];
 
   
+
+
 }

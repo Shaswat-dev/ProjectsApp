@@ -18,7 +18,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -26,10 +26,16 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-            
+             "./node_modules/ag-grid-community/dist/styles/ag-grid.css",
+             "./node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+             "./node_modules/ag-grid-angular/esm2015/ag-grid-angular.js"
+             
+             
+
+            ]
           },
           "configurations": {
             "production": {
@@ -41,8 +47,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,

@@ -9,7 +9,7 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   getprojects()
-  {return this.http.get(this.baseUrl+ 'Projects/ ')}
+  {return this.http.get(this.baseUrl+ 'Projects')}
 
   createproject(model: any)
   {
