@@ -1,0 +1,52 @@
+
+ <div class="container">
+<form
+
+#ProjectForm="ngForm"
+class="form-inline my-2 my-lg-0"
+(ngSubmit)="addproject()"
+>
+<input
+  class="form-control mr-sm-2"
+  type="text"
+  placeholder="ProjectCode"
+  name="ProjectCode"
+  required
+  [(ngModel)]="model.Code"
+/>
+<input
+  class="form-control mr-sm-2"
+  type="text"
+  placeholder="Description"
+  name="Description"
+  required
+  [(ngModel)]="model.Description"
+/>
+<input
+  class="form-control mr-sm-2"
+  type="number"
+  placeholder="CityId"
+  name="CityId"
+  required
+  [(ngModel)]="model.CityId"
+/>
+
+<input
+  class="form-control mr-sm-2"
+  type="radio"
+  placeholder="IsActive"
+  name="IsActive"
+  required
+  [(ngModel)]="model.IsActive"
+/>
+
+<button
+  
+  class="btn btn-success my-2 my-sm-0"
+  type="submit"
+>
+  Create
+</button>
+</form>
+</div>
+

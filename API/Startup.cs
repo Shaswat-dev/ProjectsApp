@@ -35,6 +35,8 @@ namespace API
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            services.AddCors();
+
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddAutoMapper(typeof(ProjectsRepository).Assembly);
              services.AddScoped<IProjectsRepository,ProjectsRepository>();
@@ -53,7 +55,7 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization();
 
