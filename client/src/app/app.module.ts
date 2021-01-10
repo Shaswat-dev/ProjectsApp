@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonRendererComponent } from './button-renderer/button-renderer.component';
+import { CityComponent } from './city/city.component';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { ButtonRendererComponent } from './button-renderer/button-renderer.compo
     NavComponent,
     ProjectComponent,
  
-    ButtonRendererComponent
+    ButtonRendererComponent,
+ 
+    CityComponent
   ],
   imports: [
     

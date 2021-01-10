@@ -9,6 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 //import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -33,10 +34,18 @@ export class AppComponent implements OnInit {
       buttonRenderer: ButtonRendererComponent,
     }
   }
+  myForm : any
 
   ngOnInit(){
     this.getProjects();
     this.getcountries();
+
+    this.myForm = new FormGroup({
+      nam: new FormControl(this.model, [
+        Validators.required,
+        Validators.minLength(4)
+      ])
+    });
   
   }
 
@@ -116,7 +125,7 @@ states: Array<any>;
   
   addproject() {
 
-    
+    console.log("from addproject");
     this.projectservice.createproject(this.model).subscribe(response => {
       console.log(response);
     }, error => {console.log(error);})
