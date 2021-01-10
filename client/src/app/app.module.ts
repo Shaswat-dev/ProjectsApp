@@ -9,13 +9,17 @@ import { NavComponent } from './nav/nav.component';
 import { ProjectComponent } from './project/project.component';
 import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ButtonRendererComponent } from './button-renderer/button-renderer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    ProjectComponent
+    ProjectComponent,
+ 
+    ButtonRendererComponent
   ],
   imports: [
     
@@ -24,6 +28,7 @@ import { AgGridModule } from 'ag-grid-angular';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    ModalModule.forRoot(),
     AgGridModule.withComponents([])
   ],
   providers: [],

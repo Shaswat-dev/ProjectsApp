@@ -1,53 +1,120 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<div class="float-container">
 
-<app-nav></app-nav>
+  <app-nav></app-nav>
 
+  <div style="display: flex; flex-grow: grow">
+    <div class="float-child nav col-lg-2 ml-3">
+      <div class="col-md-3 col-lg-2">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">
+                
+                  <h5>Projects</h5>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <h5>Country</h5>
+                  
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  
+                  <h5>City</h5>
+                </a>
+              </li>
 
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <div class="content">
-    <h2>Cascading or Dependent Dropdown using Angular 8</h2>
-    
-    <div class="card-container">
-      <label>Country</label>
-      <select placeholder="Country" [(ngModel)]="selectedCountry" (change)="changeCountry($event.target.value)">
-        <!--<option>--Choose Country--</option>-->
-        <option *ngFor="let country of countries">{{country.description}}</option>
-      </select>
+            </ul>
+
+            
+
+          </div>
+        </nav>
+      </div>
     </div>
-  
-    
-    
-    <div class="card-container">
-      <label>City</label>
-      <select placeholder="City" [(ngModel)]="cityid" (change)="changeCity(cityid)">
-        <!--<option>--Choose City--</option>-->
-        <option *ngFor="let city of cities" [value]="city.id">{{city.description}}</option>
-      </select>
+    <div class="float-child com col-lg-10 ">
+
+      <div class="col-lg-12 ml-4 mt-0 ">
+        <div class="container">
+
+
+
+          <div style="text-align:center form-control col-xl-4" >
+
+            <div class="content form-control ">
+
+              <div class="part">
+                <form #ProjectForm="ngForm" class="form-inline my-2 my-lg-0" >
+                  <input class="form-control mr-sm-2" type="text" placeholder="ProjectCode" name="ProjectCode" required 
+                    [(ngModel)]="model.code" />
+                  <input class="form-control mr-sm-2" type="text" placeholder="Description" name="Description" required
+                    [(ngModel)]="model.description" />
+                  <label>status </label> &nbsp;
+                  <input class="form-control mr-sm-2" type="checkbox" placeholder="IsActive" name="IsActive" required
+                    [(ngModel)]="model.isActive" />
+
+                   <div *ngIf="show">
+                  <button  name ="newprj" class="btn btn-success my-2 my-sm-0" type="submit" (click)="addproject()" >
+                    Create
+                  </button></div>
+                  <div *ngIf="!show">
+                  <button name ="editprj" class="btn btn-success my-2 my-sm-0" type="submit" (click)="editproject()" >
+                    Edit
+                  </button></div>
+                </form>
+              </div>
+              <h6>Cascading Dropdown </h6>
+              <div class="part">
+                <div style="display: flex; flex-grow: grow">
+                  <div class="card-container form-control col-xl-4">
+                    <label>Country</label>
+                    <select class="form-control" placeholder="Country" [(ngModel)]="selectedCountry"
+                      (change)="changeCountry($event.target.value)">
+                      <option>--Choose Country--</option>
+                      <option *ngFor="let country of countries">{{country.description}}</option>
+                    </select>
+                  </div>
+
+                  <div class="card-container form-control col-xl-4">
+                    <label>City</label>
+                    <select class="form-control" placeholder="City" [(ngModel)]="cityidval"
+                      (change)="changeCity(cityidval)">
+                      <option>--Choose City--</option>
+                      <option *ngFor="let city of cities " [ngValue]="city">{{city.code}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--<ul>
+            <li *ngFor='let project of projects'> {{project.id}} - {{project.code}} </li>
+             </ul>-->
+            
+            <div  class="pos form-control ">
+              <h5>Project List</h5>
+              <ag-grid-angular style="width: 1200px; height: 500px;" class="ag-grid ag-theme-alpine  ag-theme-balham"
+                [(rowData)]="projects" [columnDefs]="columnDefs" rowSelection="multiple"
+                [(frameworkComponents)]="frameworkComponents">
+              </ag-grid-angular>
+            </div>
+
+          </div>
+
+          
+
+
+          
+        </div>
+      </div>
     </div>
   </div>
-  <!--<ul>
-        <li *ngFor='let project of projects'> {{project.id}} - {{project.code}} </li>
-  </ul>-->
-
-  <div class="pos ">
-    <button (ngSubmit)="getSelectedRowData()">Get Selected Nodes</button>
-    <ag-grid-angular
-        style="width: 5000px; height: 500px;"
-        class="ag-grid ag-theme-alpine "
-        [rowData]="projects"
-        [columnDefs]="columnDefs"
-        
-      rowSelection="multiple"
-    >
-    </ag-grid-angular>
-    </div>
-
-  <app-project></app-project>
 
 
 
 
 <router-outlet></router-outlet>
+</div>

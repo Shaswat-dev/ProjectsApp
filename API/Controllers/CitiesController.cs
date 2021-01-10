@@ -77,7 +77,8 @@ namespace API.Controllers
           
           var city =  await _projectRepository.GetCityByIdAsync(id);
            // country = _mapper.Map<Countries>(addCountryDto);
-            _mapper.Map(addCitiesDto, city);
+          var updatecity = _mapper.Map<UpdateCitiesDto>(addCitiesDto);
+            _mapper.Map(updatecity,city);
            // await _projectRepository.SaveAllAsync();
 
              if (await _projectRepository.SaveAllAsync())

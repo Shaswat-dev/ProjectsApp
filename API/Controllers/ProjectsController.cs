@@ -89,6 +89,20 @@ namespace API.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult>  Delete(int id)
+        {
+             var del = await _projectRepository.GetProjectByIdAsync(id);
+            
+
+            _projectRepository.Delete(del);
+
+              if (await _projectRepository.SaveAllAsync())
+                 return NoContent();
+
+              throw new Exception("Error deleting the message");
+        }
+
 
     }
 }

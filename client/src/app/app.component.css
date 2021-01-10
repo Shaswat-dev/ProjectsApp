@@ -1,0 +1,16 @@
+
+
+.float-child.nav {
+    margin-left: 0px;
+    margin-right: -40px;
+    background-color: rgb(212, 209, 206);
+    border: 2px solid rgb(126, 126, 129);
+    display:inline;
+}
+
+.float-child.com {
+    margin-left: -60px;
+    
+    display:inline;
+}
+

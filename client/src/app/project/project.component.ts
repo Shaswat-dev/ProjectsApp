@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProjectService } from '../_services/project.service';
+import {AppComponent} from '../app.component'
 
 
 @Component({
@@ -9,11 +10,12 @@ import { ProjectService } from '../_services/project.service';
 })
 export class ProjectComponent implements OnInit {
   model: any ={}
-  
+  @Input('projects') appc : any
   rowData : any =[]
   constructor(private projectservice: ProjectService) { }
 
   ngOnInit() {
+    this.getallprojects();
   }
 
   addproject() {
@@ -23,10 +25,14 @@ export class ProjectComponent implements OnInit {
   }
 
   getallprojects() {
-    this.projectservice.getprojects().subscribe(response => {
-      //this.rowData =  response; 
+    /*this.projectservice.getprojects().subscribe(response => {
+      this.rowData =  response; 
      
-    }, error => {console.log(error);})
+    }, error => {console.log(error);})*/
+
+    //this.rowData = this.appc;
+    console.log("htyuty");
+    console.log(this.appc);
   }
   columnDefs = [
     { field: 'id' },
