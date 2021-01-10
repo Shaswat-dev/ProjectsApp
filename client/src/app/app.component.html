@@ -107,7 +107,7 @@
              </ul>-->
             
             <div  class="pos form-control ">
-              <h5>Project List</h5>
+              <h5>Project List</h5> &nbsp; <div class="form-control"> <input class="form-control mr-sm-0" type="text" placeholder="Search by description" name="Search" [(ngModel)] = "search" (input)="searchby()"></div>
               <ag-grid-angular style="width: 1200px; height: 500px;" class="ag-grid ag-theme-alpine  ag-theme-balham"
                 [(rowData)]="projects" [columnDefs]="columnDefs" rowSelection="multiple"
                 [(frameworkComponents)]="frameworkComponents">

@@ -104,7 +104,15 @@ selectedCountry: String = "--Choose Country--";
 cityidval : any
 states: Array<any>;
 
-	cities: any;
+  cities: any;
+  search: any;
+
+  searchby()
+  {
+    if(this.search != null){
+    this.projects = this.projectsmain.filter(cntry => cntry.description.includes(this.search));
+    }
+  }
 	
 	changeCountry(country) {
     console.log("hi");
