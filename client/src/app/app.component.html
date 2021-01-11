@@ -99,7 +99,7 @@
                   <div class="card-container form-control col-xl-4">
                     <label>City</label>
                     <select class="form-control" placeholder="City" [(ngModel)]="cityidval"
-                      (change)="changeCity(cityidval)">
+                      (change)="changeCity(cityidval)" required>
                       <option>--Choose City--</option>
                       <option *ngFor="let city of cities " [ngValue]="city">{{city.description}}</option>
                     </select>

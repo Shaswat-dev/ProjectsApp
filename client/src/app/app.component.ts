@@ -264,8 +264,9 @@ states: Array<any>;
     this.projectservice.putproject(this.model).subscribe(response => {
       console.log(response);alertify.success('edited the record!');
      // window.location.reload();
+     this.model = {};
      this.getProjects();
-
+     this.cityidval =  "--Choose City--"
      this.show=true;
     }, error => {console.log(error);})
 
@@ -289,6 +290,7 @@ states: Array<any>;
     
     this.rowDataClicked1 = e.rowData;
     this.model = this.rowDataClicked1;
+    //this.cityidval =  this.model.cityId;
     console.log(this.model);
     this.show = false;
     //this.modalRef = this.modalService.show();
@@ -302,6 +304,8 @@ states: Array<any>;
     console.log(this.model);
     this.projectservice.deleteproject(this.model).subscribe(response => {
       alertify.error('Deleted!');
+      this.cityidval =  "--Choose City--"
+      this.model = {};
       this.getProjects();
       console.log(response);
     }, error => {console.log(error);alertify.error('Failed to Delete, retry!');})
