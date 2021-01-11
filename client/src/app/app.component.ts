@@ -10,8 +10,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { promise } from 'protractor';
 
-
+import * as alertify from 'alertifyjs';
 
 @Component({
   selector: 'app-root',
@@ -36,9 +37,14 @@ export class AppComponent implements OnInit {
   }
   myForm : any
 
-  ngOnInit(){
-    this.getProjects();
-    this.getcountries();
+ async  ngOnInit(){
+    this.dbcalls()
+
+   
+
+    //console.log(this.projects);
+
+
 
     this.myForm = new FormGroup({
       nam: new FormControl(this.model, [
@@ -49,22 +55,79 @@ export class AppComponent implements OnInit {
   
   }
 
-  getProjects() {
+  CityName :any
+   dbcalls()
+  {
+   this.getProjects().then(x => this.getcountries()).then
+    ( x => {
+      console.log('fgw'); var i
+      this.projects.forEach( z => {
+        //console.log(z.cityId);
+       //this.cityformat = this.countries.filter(x => x.cities.id == y.cityId).cities
 
+    //this.cityformat =  this.countries.filter(x => x.cities.find( y => y.id == (z.cityId))).cities;
+      this.countries.forEach(x => {
+      // console.log(x.cities);
+        
+        x.cities.forEach(y => {
+          //console.log(y.id);
+          if(z.cityId == y.id)
+          {
+            z.CityName = y.description;
+            //console.log(this.projects.CityName);
+          }
+        });
+      });
+     
+     // this.cityformat =  this.countries.filter(x => x.id == 1);
+      //console.log(  this.cityformat);
+      // this.projects.cityname = this.cityformat.description;
+       
+      }); 
+      
+    },(err) => console.error(err)
+      );
+    
+
+   
+  
+  }
+
+ getProjects() {
+  return new Promise((resolve, reject) => {
     this.http.get('https://localhost:5001/API/Projects').subscribe(response => {
      this.projectsmain = response;
      this.projects = response;
+     console.log('projects---');
+     resolve();
   }, error => {
      console.log(error);
+     reject();
+  });
+   
+  
+  });
+}
 
-  })
-  }
+   myCellRenderer (params) {
+    return '<span style="color: ' + params.color + '">' + params.value + '</span>';
+}
+
+
+ cityValueGetter(params) {
+  var name = 'tes'
+  // params.countries.find(x => x == params.data.cityId);
+  //this.cities.find(cntry => cntry.id == params.data.cityId).description;
+  return name;
+}
+
   template: TemplateRef<any>;
   columnDefs = [
     { field: 'id' },
     { field: 'code' },
     { field: 'description' },
-    { field: 'cityId'},
+    //{ field: 'cityId'},
+    { field: 'CityName'},
     { field: 'isActive'},
     { field: 'edit',
     cellRenderer: 'buttonRenderer',
@@ -83,6 +146,10 @@ export class AppComponent implements OnInit {
     }
   }
 ];
+
+
+cityformat : any = {}
+
 private gridApi;
 getSelectedRowData() {
 	let selectedNodes = this.gridApi.getSelectedNodes();
@@ -93,13 +160,30 @@ getSelectedRowData() {
 countries : any
 getcountries() {
 
+  return new Promise((resolve, reject) => {
+    
   this.http.get('https://localhost:5001/API/Countries').subscribe(response => {
-   this.countries = response;
-}, error => {
-   console.log(error);
-
-})
+    this.countries = response;
+    //this.cities = this.countries.all.cities;
+    var i = 0;
+   /* this.projects.forEach( y => {
+      console.log(y.cityId);
+     this.cityformat = this.countries.find(x => x.cities.id == y.cityId).cities;
+     this.projects.cityname = this.cityformat.description;
+     i++;
+    });*/
+    
+    //this.projects.cityformat = this.countries.filter(x => x.cities.id == this.projects.cityId).cities.description;
+ 
+    console.log(this.countries);
+  resolve();
+ }, error => {
+    console.log(error);
+ reject();
+ });
+});
 }
+
 selectedCountry: String = "--Choose Country--";
 cityidval : any
 states: Array<any>;
@@ -118,6 +202,7 @@ states: Array<any>;
     console.log("hi");
     if(country != "--Choose Country--"){
     this.cities = this.countries.find(cntry => cntry.description == country).cities;}
+    
     console.log(this.cities);
 	}
 
@@ -135,7 +220,7 @@ states: Array<any>;
 
     console.log("from addproject");
     this.projectservice.createproject(this.model).subscribe(response => {
-      console.log(response);
+      console.log(response);alertify.success('successfully added the project!');
     }, error => {console.log(error);})
 
     //this.ngOnInit();
@@ -147,7 +232,7 @@ states: Array<any>;
 
     
     this.projectservice.putproject(this.model).subscribe(response => {
-      console.log(response);
+      console.log(response);alertify.success('edited the record!');
     }, error => {console.log(error);})
 
 
@@ -167,6 +252,7 @@ states: Array<any>;
   show: boolean = true
 
   onBtnClick1(e) {
+    
     this.rowDataClicked1 = e.rowData;
     this.model = this.rowDataClicked1;
     console.log(this.model);
@@ -181,8 +267,9 @@ states: Array<any>;
     this.model = this.rowDataClicked2;
     console.log(this.model);
     this.projectservice.deleteproject(this.model).subscribe(response => {
+      alertify.success('Deleted!');
       console.log(response);
-    }, error => {console.log(error);})
+    }, error => {console.log(error);alertify.error('Failed to Delete, retry!');})
    window.location.reload();
   }
 

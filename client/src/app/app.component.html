@@ -1,3 +1,9 @@
+<!-- include the script -->
+<script src="/alertifyjs/build/alertify.min.js"></script>
+<!-- include the style -->
+<link rel="stylesheet" href="/alertifyjs/build/css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="/alertifyjs/build/css/themes/default.min.css" />
 <div class="float-container">
 
   <app-nav></app-nav>
@@ -109,8 +115,8 @@
             <div  class="pos form-control ">
               <h5>Project List</h5> &nbsp; <div class="form-control"> <input class="form-control mr-sm-0" type="text" placeholder="Search by description" name="Search" [(ngModel)] = "search" (input)="searchby()"></div>
               <ag-grid-angular style="width: 1200px; height: 500px;" class="ag-grid ag-theme-alpine  ag-theme-balham"
-                [(rowData)]="projects" [columnDefs]="columnDefs" rowSelection="multiple"
-                [(frameworkComponents)]="frameworkComponents">
+                [(rowData)]="projects" [(columnDefs)]="columnDefs" rowSelection="multiple" 
+                [(frameworkComponents)]="frameworkComponents"  >
               </ag-grid-angular>
             </div>
 

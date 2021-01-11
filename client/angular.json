@@ -31,7 +31,8 @@
               "src/styles.css"
             ],
             "scripts": [
-             "./node_modules/ag-grid-angular/esm2015/ag-grid-angular.js"
+             "./node_modules/ag-grid-angular/esm2015/ag-grid-angular.js",
+              "node_modules/alertifyjs/build/alertify.min.js"
              
              
 
