@@ -23,6 +23,7 @@
     "ag-grid-community": "^25.0.0",
     "alertifyjs": "^1.13.1",
     "bootstrap": "4.1.1",
+    "bootswatch": "^4.5.3",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^6.2.0",
     "node-sass": "^5.0.0",

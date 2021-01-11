@@ -83,7 +83,8 @@ export class AppComponent implements OnInit {
       //console.log(  this.cityformat);
       // this.projects.cityname = this.cityformat.description;
        
-      }); 
+      }); //this.gridApi.refreshCells({  columnDefs: ['CityName'] });
+      
       
     },(err) => console.error(err)
       );
@@ -93,11 +94,33 @@ export class AppComponent implements OnInit {
   
   }
 
+  getcityname(){
+
+    this.projects.forEach( z => {
+     
+    this.countries.forEach(x => {
+    
+      x.cities.forEach(y => {
+     
+        if(z.cityId == y.id)
+        {
+          z.CityName = y.description;
+       
+        }
+      });
+    });
+   
+ 
+     
+    }); 
+  }
+
  getProjects() {
   return new Promise((resolve, reject) => {
     this.http.get('https://localhost:5001/API/Projects').subscribe(response => {
      this.projectsmain = response;
      this.projects = response;
+     
      console.log('projects---');
      resolve();
   }, error => {
@@ -127,7 +150,7 @@ export class AppComponent implements OnInit {
     { field: 'code' },
     { field: 'description' },
     //{ field: 'cityId'},
-    { field: 'CityName'},
+    //{ field: 'CityName'},
     { field: 'isActive'},
     { field: 'edit',
     cellRenderer: 'buttonRenderer',
@@ -202,6 +225,10 @@ states: Array<any>;
     console.log("hi");
     if(country != "--Choose Country--"){
     this.cities = this.countries.find(cntry => cntry.description == country).cities;}
+    else{
+      this.projects = this.projectsmain;
+      this.cityidval = "--Choose City--";
+    }
     
     console.log(this.cities);
 	}
@@ -220,11 +247,14 @@ states: Array<any>;
 
     console.log("from addproject");
     this.projectservice.createproject(this.model).subscribe(response => {
-      console.log(response);alertify.success('successfully added the project!');
+      console.log(response); alertify.success('successfully added the project!');
+     // window.location.reload();
+     this.getProjects();
+    
     }, error => {console.log(error);})
 
     //this.ngOnInit();
-    window.location.reload();
+    //window.location.reload();
 
   }
 
@@ -233,14 +263,18 @@ states: Array<any>;
     
     this.projectservice.putproject(this.model).subscribe(response => {
       console.log(response);alertify.success('edited the record!');
+     // window.location.reload();
+     this.getProjects();
+
+     this.show=true;
     }, error => {console.log(error);})
 
 
 
-    this.show=false;
+   
 
     //this.ngOnInit();
-    window.location.reload();
+    //
 
   }
 
@@ -267,10 +301,11 @@ states: Array<any>;
     this.model = this.rowDataClicked2;
     console.log(this.model);
     this.projectservice.deleteproject(this.model).subscribe(response => {
-      alertify.success('Deleted!');
+      alertify.error('Deleted!');
+      this.getProjects();
       console.log(response);
     }, error => {console.log(error);alertify.error('Failed to Delete, retry!');})
-   window.location.reload();
+   //window.location.reload();
   }
 
 }

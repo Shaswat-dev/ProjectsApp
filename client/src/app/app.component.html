@@ -9,7 +9,7 @@
   <app-nav></app-nav>
 
   <div style="display: flex; flex-grow: grow">
-    <div class="float-child nav col-lg-2 ml-3">
+    <div class="float-child nav  col-lg-2 ml-3 form-control">
       <div class="col-md-3 col-lg-2">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse">
           <div class="position-sticky pt-3">
@@ -101,7 +101,7 @@
                     <select class="form-control" placeholder="City" [(ngModel)]="cityidval"
                       (change)="changeCity(cityidval)">
                       <option>--Choose City--</option>
-                      <option *ngFor="let city of cities " [ngValue]="city">{{city.code}}</option>
+                      <option *ngFor="let city of cities " [ngValue]="city">{{city.description}}</option>
                     </select>
                   </div>
                 </div>

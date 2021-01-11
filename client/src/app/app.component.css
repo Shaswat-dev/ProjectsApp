@@ -3,7 +3,7 @@
 .float-child.nav {
     margin-left: 0px;
     margin-right: -40px;
-    background-color: rgb(212, 209, 206);
+    background-color: rgba(148, 156, 161, 0.466);
     border: 2px solid rgb(126, 126, 129);
     display:inline;
 }
